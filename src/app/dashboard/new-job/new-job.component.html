@@ -1,0 +1,50 @@
+<div class="p-5">
+  <form [formGroup]="newJobForm">
+    <h2>Job Properties</h2>
+
+    <div class="mt-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Function to invoke</mat-label>
+        <mat-select formControlName="toInvoke">
+          <mat-option [value]="constants.jobFunctionCodes.stats">Stats (Function 1)</mat-option>
+          <mat-option [value]="constants.jobFunctionCodes.guidance">Guidance (Function 2)</mat-option>
+          <mat-option [value]="constants.jobFunctionCodes.both">Both</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div formArrayName="handles">
+      <div
+        *ngFor="let item of handles.controls; let pointIndex = index"
+        [formGroupName]="pointIndex"
+      >
+        <mat-form-field appearance="outline" floatLabel="always" class="form-field-with-prefix">
+          <mat-label>Handle</mat-label>
+          <input
+            formControlName="handle"
+            matInput
+            placeholder="JohnDoe"
+            autocomplete="off"
+          />
+          <span matPrefix>@</span>
+
+        </mat-form-field>
+
+        <mat-icon
+          *ngIf="pointIndex >= 1"
+          (click)="onDeleteHandleClick(pointIndex)"
+          class="ml-3 text-danger cursor-pointer">remove_circle</mat-icon>
+      </div>
+      <button mat-raised-button color="primary" (click)="onAddHandleClick()">Add Handle</button>
+    </div>
+
+
+  </form>
+
+  <button
+    mat-raised-button
+    color="success"
+    (click)="onStartJobClick()"
+    [disabled]="newJobForm.invalid"
+    class="mt-3">Start Job</button>
+</div>

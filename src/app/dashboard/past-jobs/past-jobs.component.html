@@ -1,0 +1,81 @@
+<div class="p-5">
+
+  <h2>All jobs</h2>
+
+  <mat-form-field class="w-100">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="jobId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Job ID
+      </mat-header-cell>
+      <mat-cell *matCellDef="let job" class="text-ellipsis">
+        {{ job.jobId }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="stats">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Statistical Results
+      </mat-header-cell>
+      <mat-cell *matCellDef="let job" class="text-ellipsis">
+        <a
+          href=""
+          (click)="$event.preventDefault(); download(job.stats)"
+          *ngIf="
+            job.status === constants.jobStatus.completed &&
+              functionInvocated(job, constants.jobFunctions.stats);
+            else jobNotCompleted
+          "
+        >
+          {{ job.stats }}
+        </a>
+
+        <ng-template #jobNotCompleted>
+          -
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="guidance">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Guidance Results
+      </mat-header-cell>
+      <mat-cell *matCellDef="let job" class="text-ellipsis">
+        <a
+          href=""
+          (click)="$event.preventDefault(); download(job.guidance)"
+          *ngIf="
+            job.status === constants.jobStatus.completed &&
+              functionInvocated(job, constants.jobFunctions.guidance);
+            else jobNotCompleted
+          "
+        >
+          {{ job.guidance }}
+        </a>
+
+        <ng-template #jobNotCompleted>
+          -
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Status
+      </mat-header-cell>
+      <mat-cell *matCellDef="let job" class="text-ellipsis">
+        <span
+            class="badge text-uppercase {{ getBadgeStyle(job) }} status-badge">
+            {{ job.status }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

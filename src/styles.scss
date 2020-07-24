@@ -1,1 +1,35 @@
+@import '../node_modules/bootstrap/scss/bootstrap';
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-danger {
+    background-color: $danger;
+    color: $white;
+}
+
+.mat-success {
+    background-color: $success;
+    color: $white;
+}
+
+.text-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.form-field-with-prefix {
+    .mat-form-field-prefix {
+        top: -0.05em !important;
+    }
+    input {
+        margin-left: 10px;
+    }
+}
+
