@@ -42,7 +42,7 @@ export class PastJobsComponent implements OnInit {
                 job.stats = job.jobId + '-' + 'stats.csv';
               }
               if (this.functionInvocated(job, 'guidance')) {
-                job.guidance = job.jobId + '-' + 'guidance.txt';
+                job.guidance = job.jobId + '-' + 'guidance.csv';
               }
             }
           )
