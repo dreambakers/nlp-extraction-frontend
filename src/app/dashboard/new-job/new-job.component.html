@@ -1,50 +1,49 @@
 <div class="p-5">
-  <form [formGroup]="newJobForm">
-    <h2>Job Properties</h2>
-
-    <div class="mt-4">
-      <mat-form-field appearance="fill">
-        <mat-label>Function to invoke</mat-label>
-        <mat-select formControlName="toInvoke">
-          <mat-option [value]="constants.jobFunctionCodes.stats">Stats (Function 1)</mat-option>
-          <mat-option [value]="constants.jobFunctionCodes.guidance">Guidance (Function 2)</mat-option>
-          <mat-option [value]="constants.jobFunctionCodes.both">Both</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div formArrayName="handles">
-      <div
-        *ngFor="let item of handles.controls; let pointIndex = index"
-        [formGroupName]="pointIndex"
-      >
-        <mat-form-field appearance="outline" floatLabel="always" class="form-field-with-prefix">
-          <mat-label>Handle</mat-label>
-          <input
-            formControlName="handle"
-            matInput
-            placeholder="JohnDoe"
-            autocomplete="off"
-          />
-          <span matPrefix>@</span>
-
+  <form [formGroup]="newJobForm" class="d-flex flex-column align-items-center justify-content-center new-job-form">
+    <div class="d-flex flex-column justify-content-start form-body">
+      <h2>Job Properties</h2>
+      <div class="mt-4">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Function to invoke</mat-label>
+          <mat-select formControlName="toInvoke">
+            <mat-option [value]="constants.jobFunctionCodes.stats">Stats (Function 1)</mat-option>
+            <mat-option [value]="constants.jobFunctionCodes.guidance">Guidance (Function 2)</mat-option>
+            <mat-option [value]="constants.jobFunctionCodes.both">Both</mat-option>
+          </mat-select>
         </mat-form-field>
-
-        <mat-icon
-          *ngIf="pointIndex >= 1"
-          (click)="onDeleteHandleClick(pointIndex)"
-          class="ml-3 text-danger cursor-pointer">remove_circle</mat-icon>
       </div>
-      <button mat-raised-button color="primary" (click)="onAddHandleClick()">Add Handle</button>
+
+      <div formArrayName="handles">
+        <div *ngFor="let item of handles.controls; let pointIndex = index" [formGroupName]="pointIndex">
+          <mat-form-field appearance="outline" floatLabel="always" class="form-field-with-prefix w-100">
+            <mat-label>Handle</mat-label>
+            <input formControlName="handle" matInput placeholder="JohnDoe" autocomplete="off" />
+            <span matPrefix>@</span>
+            <button
+              matTooltip="Remove handle"
+              mat-icon-button
+              matSuffix
+              *ngIf="pointIndex >= 1"
+              (click)="onDeleteHandleClick(pointIndex)"
+              class="text-danger cursor-pointer">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div>
+        <button mat-raised-button color="primary" (click)="onAddHandleClick()">
+          Add Handle
+        </button>
+      </div>
+
+      <div>
+        <button mat-raised-button color="success" (click)="onStartJobClick()" [disabled]="newJobForm.invalid"
+          class="mt-3 align-self-start">
+          Start Job
+        </button>
+      </div>
     </div>
-
-
   </form>
-
-  <button
-    mat-raised-button
-    color="success"
-    (click)="onStartJobClick()"
-    [disabled]="newJobForm.invalid"
-    class="mt-3">Start Job</button>
 </div>

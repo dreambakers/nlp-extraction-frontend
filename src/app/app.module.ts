@@ -19,6 +19,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatTableModule,
     MatSortModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
