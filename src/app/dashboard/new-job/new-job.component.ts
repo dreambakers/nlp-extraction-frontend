@@ -44,10 +44,11 @@ export class NewJobComponent implements OnInit {
   }
 
   onStartJobClick() {
-    console.log(this.newJobForm.value)
     this.jobService.invokeJob(this.newJobForm.value).subscribe(
       (res: any) => {
         if (res.success) {
+          this.handles.clear();
+          this.onAddHandleClick();
           this.utilService.openSnackBar('Job started successfully.');
           this.emitterService.emit(this.constants.emitterKeys.jobStarted, res.job);
         } else {
